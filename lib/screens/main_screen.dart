@@ -10,8 +10,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
-
   List<Widget> _widgetOptions = <Widget>[
     SettingsPage(),
     HomeScreen(),
@@ -23,9 +21,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: returnAppBar(),
       body: _widgetOptions.elementAt(_currentIndex),
       bottomNavigationBar: SalomonBottomBar(
-        duration: Duration(seconds: 1),
         currentIndex: _currentIndex,
         onTap: (i) => setState(() => _currentIndex = i),
         items: [
@@ -47,5 +45,19 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
     );
+  }
+
+  returnAppBar() {
+    if (_currentIndex == 1)
+      return AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(Icons.notifications),
+          ),
+        ],
+      );
   }
 }

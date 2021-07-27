@@ -1,11 +1,7 @@
-import 'dart:io';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:windsy_ev/providers/charge_status_provider.dart';
 import 'package:windsy_ev/widgets/progress_indicator.dart';
 
@@ -24,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
           final chargingStatus =
               Provider.of<ChargingStatusProvider>(context, listen: true);
           final screenWidth = MediaQuery.of(context).size.width;
-          final screenHeight = MediaQuery.of(context).size.height;
+          //final screenHeight = MediaQuery.of(context).size.height;
 
           return SafeArea(
             child: Padding(
@@ -41,25 +37,93 @@ class _HomeScreenState extends State<HomeScreen> {
                         chargingStatus.chargingStatus
                             ? Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text("Charging"),
+                                child: Text(
+                                  "Charging",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
                               )
                             : Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text("Connect charger"),
+                                child: Text(
+                                  "Connect charger",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
                               ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image(
+                                      image: AssetImage('assets/home/typ2.png'),
+                                      width: 60,
+                                      height: 55,
+                                      fit: BoxFit.fill,
+                                      color: Colors.blueGrey,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "TYPE 2",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image(
+                                      image: AssetImage('assets/home/thun.png'),
+                                      width: 60,
+                                      height: 55,
+                                      //fit: BoxFit.fill,
+                                      color: Colors.blueGrey,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "11 kW",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
                   FlutterSwitch(
                     key: key,
                     duration: Duration(milliseconds: 500),
-                    width: screenWidth / 2.5,
-                    height: 80,
+                    width: screenWidth / 3,
+                    height: 60,
                     valueFontSize: 30.0,
                     toggleSize: 60.0,
                     value: chargingStatus.chargingStatus,
                     borderRadius: 20.0,
-                    padding: 16.0,
+                    padding: 12.0,
                     //showOnOff: true,
                     onToggle: (value) {
                       setState(() {
