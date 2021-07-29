@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:windsy_ev/providers/charge_status_provider.dart';
+import 'package:windsy_ev/themes/themes.dart';
 import 'package:windsy_ev/widgets/progress_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,8 +20,10 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context, _) {
           final chargingStatus =
               Provider.of<ChargingStatusProvider>(context, listen: true);
-          final screenWidth = MediaQuery.of(context).size.width;
-          //final screenHeight = MediaQuery.of(context).size.height;
+          final themeProvider =
+              Provider.of<ThemeProvider>(context, listen: true);
+
+          final size = MediaQuery.of(context).size;
 
           return SafeArea(
             child: Padding(
@@ -34,27 +37,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ChargingProgressIndicator(),
-                        chargingStatus.chargingStatus
-                            ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Charging",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Connect charger",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),
-                                ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              chargingStatus.chargingStatus
+                                  ? 'CHARGING'
+                                  : 'IDLE',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: size.width * 0.10,
+                                color: themeProvider.themeMode == ThemeMode.dark
+                                    ? Colors.white.withOpacity(0.05)
+                                    : Colors.black.withOpacity(0.05),
                               ),
+                            ),
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -66,8 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Image(
                                       image: AssetImage('assets/home/typ2.png'),
-                                      width: 60,
-                                      height: 55,
+                                      width: 30,
+                                      height: 30,
                                       fit: BoxFit.fill,
                                       color: Colors.blueGrey,
                                     ),
@@ -90,8 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Image(
                                       image: AssetImage('assets/home/thun.png'),
-                                      width: 60,
-                                      height: 55,
+                                      width: 30,
+                                      height: 30,
                                       //fit: BoxFit.fill,
                                       color: Colors.blueGrey,
                                     ),
@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   FlutterSwitch(
                     key: key,
                     duration: Duration(milliseconds: 500),
-                    width: screenWidth / 3,
+                    width: size.width / 3,
                     height: 60,
                     valueFontSize: 30.0,
                     toggleSize: 60.0,

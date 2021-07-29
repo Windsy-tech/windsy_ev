@@ -59,7 +59,7 @@ class _AnimatedLiquidCustomProgressIndicatorState
       child: LiquidCustomProgressIndicator(
         value: percentage / 100,
         direction: Axis.vertical,
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blueGrey.withOpacity(0.40),
         valueColor: chargingStatusProvider.chargingStatus
             ? AlwaysStoppedAnimation(Colors.green)
             : AlwaysStoppedAnimation(Colors.red),
